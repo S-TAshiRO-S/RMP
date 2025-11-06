@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lab 1 — Basic Layout',
+      title: 'Lab 1 — Interactive',
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
     );
@@ -17,17 +17,27 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _onFabPressed() {
+    // Сообщение увидишь в терминале, где запущен flutter run
+    // ignore: avoid_print
+    print('Button pressed!');
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Здесь реализуем требуемый минимальный макет
     return Scaffold(
-      appBar: AppBar(title: const Text('Лаб. №1 — Базовый макет')),
+      appBar: AppBar(title: const Text('Лаб. №1 — Интерфейс (Продвинутая)')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onFabPressed,
+        tooltip: 'Press',
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         children: <Widget>[
-          // Первый контейнер (width = ширина экрана, height = 150, цвет = синий)
+          // Первый контейнер
           Container(
             width: double.infinity,
-            height: 150,
+            height: 140,
             color: Colors.blueAccent,
             alignment: Alignment.center,
             child: const Text(
@@ -36,9 +46,9 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // Row с тремя Text, равномерно распределёнными по ширине
+          // Row с тремя Text
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
@@ -49,7 +59,29 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // Второй контейнер (ширина = ширина экрана, height = 100, цвет = зелёный)
+          // Expanded с Row и двумя CircleAvatar
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Первый CircleAvatar (без изображения), radius 40
+                const CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Colors.deepPurple,
+                  child: Text('A', style: TextStyle(color: Colors.white, fontSize: 20)),
+                ),
+
+                // Второй CircleAvatar с backgroundImage (NetworkImage), radius 60
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: const NetworkImage('https://yt3.googleusercontent.com/Zw-TIkvjsdjeCzm6hT4GPDk-aAdx5WQnSStV33zbXcFX2Q1xv68clx9PLwk6KeloOZhhGIrgww=s900-c-k-c0x00ffffff-no-rj'),
+                  backgroundColor: Colors.grey[200],
+                ),
+              ],
+            ),
+          ),
+
+          // Второй контейнер
           Container(
             width: double.infinity,
             height: 100,
